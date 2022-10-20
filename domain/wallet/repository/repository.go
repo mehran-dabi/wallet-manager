@@ -60,6 +60,7 @@ func (w *WalletRepository) GetByID(ctx context.Context, ID int64) (wallet *entit
 		return nil, constants.ErrNotFound
 	}
 
+	wallet = &entity.Wallet{}
 	if err := result.Scan(&wallet.ID, &wallet.Balance, &wallet.UserID, &wallet.CreatedAt, &wallet.UpdateAt); err != nil {
 		log.Printf("failed to scan result: %s\n", err)
 		return nil, errors.New("failed to read record")
@@ -79,6 +80,7 @@ func (w *WalletRepository) GetByUserID(ctx context.Context, userID int64) (walle
 		return nil, constants.ErrNotFound
 	}
 
+	wallet = &entity.Wallet{}
 	if err := result.Scan(&wallet.ID, &wallet.Balance, &wallet.UserID, &wallet.CreatedAt, &wallet.UpdateAt); err != nil {
 		log.Printf("failed to scan result: %s\n", err)
 		return nil, errors.New("failed to read record")
