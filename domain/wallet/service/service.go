@@ -25,7 +25,17 @@ func NewWalletService(repository repository.IWalletRepository) *WalletService {
 }
 
 func (w *WalletService) Create(ctx context.Context, userID int64) (wallet *dto.Wallet, err error) {
-	walletEntity, err := w.repository.Create(ctx, userID)
+	// prevent user to create two wallets
+	walletEntity, err := w.repository.GetByUserID(ctx, userID)
+	if err != nil {
+		return nil, err
+	}
+
+	if walletEntity != nil {
+		return nil, constants.ErrUserAlreadyHasWallet
+	}
+
+	walletEntity, err = w.repository.Create(ctx, userID)
 	if err != nil {
 		return nil, err
 	}
