@@ -56,7 +56,7 @@ func (w *WalletService) SubtractFund(ctx context.Context, ID int64, fund uint64)
 		return nil, err
 	}
 
-	if walletEntity.Balance-fund < 0 {
+	if walletEntity.Balance < fund {
 		return nil, constants.ErrBalanceNotSufficient
 	}
 
