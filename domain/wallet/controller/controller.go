@@ -45,8 +45,8 @@ func (w *WalletController) Run(port string) *http.Server {
 			wallet.POST("/create", w.Create)
 			wallet.POST("/add-fund", w.AddFund)
 			wallet.POST("/subtract-fund", w.SubtractFund)
-			wallet.GET("/user/:id", w.GetByUserID)
 			wallet.GET("/:id", w.GetByID)
+			wallet.GET("/user/:id", w.GetByUserID)
 		}
 	}
 
@@ -153,7 +153,7 @@ func (w *WalletController) GetByID(c *gin.Context) {
 }
 
 func (w *WalletController) GetByUserID(c *gin.Context) {
-	userID := c.Param("user_id")
+	userID := c.Param("id")
 	userIDInt, err := strconv.ParseInt(userID, 10, 64)
 	if err != nil {
 		w.ginResponse(c, http.StatusBadRequest, err.Error())
