@@ -43,7 +43,7 @@ func (w *WalletRepository) Create(ctx context.Context, userID int64) (wallet *en
 		ID:        ID,
 		UserID:    userID,
 		CreatedAt: time.Now(),
-		UpdateAt:  time.Now(),
+		UpdatedAt: time.Now(),
 	}
 
 	return wallet, nil
@@ -61,7 +61,7 @@ func (w *WalletRepository) GetByID(ctx context.Context, ID int64) (wallet *entit
 	}
 
 	wallet = &entity.Wallet{}
-	if err := result.Scan(&wallet.ID, &wallet.Balance, &wallet.UserID, &wallet.CreatedAt, &wallet.UpdateAt); err != nil {
+	if err := result.Scan(&wallet.ID, &wallet.Balance, &wallet.UserID, &wallet.CreatedAt, &wallet.UpdatedAt); err != nil {
 		log.Printf("failed to scan result: %s\n", err)
 		return nil, errors.New("failed to read record")
 	}
@@ -81,7 +81,7 @@ func (w *WalletRepository) GetByUserID(ctx context.Context, userID int64) (walle
 	}
 
 	wallet = &entity.Wallet{}
-	if err := result.Scan(&wallet.ID, &wallet.Balance, &wallet.UserID, &wallet.CreatedAt, &wallet.UpdateAt); err != nil {
+	if err := result.Scan(&wallet.ID, &wallet.Balance, &wallet.UserID, &wallet.CreatedAt, &wallet.UpdatedAt); err != nil {
 		log.Printf("failed to scan result: %s\n", err)
 		return nil, errors.New("failed to read record")
 	}
@@ -100,10 +100,10 @@ func (w *WalletRepository) AddFund(ctx context.Context, ID int64, fund uint64) (
 }
 
 func (w *WalletRepository) SubtractFund(ctx context.Context, ID int64, fund uint64) (err error) {
-	_, err = w.db.ExecContext(ctx, decreaseBalanceQuery, fund, ID)
+	_, err = w.db.ExecContext(ctx, subtractBalanceQuery, fund, ID)
 	if err != nil {
 		log.Printf("failed to decrease fund from wallet: %s\n", err)
-		return errors.New("failed to decrease fund from wallet")
+		return errors.New("failed to subtract fund from wallet")
 	}
 
 	return nil

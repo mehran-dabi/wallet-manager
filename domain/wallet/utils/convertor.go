@@ -11,7 +11,7 @@ func WalletDTOFromEntity(entity *entity.Wallet) *dto.Wallet {
 		Balance:   entity.Balance,
 		UserID:    entity.UserID,
 		CreatedAt: entity.CreatedAt,
-		UpdateAt:  entity.UpdateAt,
+		UpdateAt:  entity.UpdatedAt,
 	}
 }
 
@@ -21,6 +21,6 @@ func WalletEntityFromDTO(dto *dto.Wallet) *entity.Wallet {
 		Balance:   dto.Balance,
 		UserID:    dto.UserID,
 		CreatedAt: dto.CreatedAt,
-		UpdateAt:  dto.UpdateAt,
+		UpdatedAt: dto.UpdateAt,
 	}
 }

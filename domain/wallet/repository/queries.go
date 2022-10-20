@@ -9,7 +9,7 @@ const (
 
 	addBalanceQuery = `UPDATE ` + walletTableName + ` SET balance = balance + ?, updated_at = NOW() WHERE id = ?`
 
-	decreaseBalanceQuery = `UPDATE ` + walletTableName + ` SET balance = balance - ?, updated_at = NOW() WHERE id = ?`
+	subtractBalanceQuery = `UPDATE ` + walletTableName + ` SET balance = balance - ?, updated_at = NOW() WHERE id = ?`
 
 	getWalletByIDQuery = `SELECT id, balance, user_id, created_at, updated_at FROM ` + walletTableName + ` WHERE id = ?`
 
