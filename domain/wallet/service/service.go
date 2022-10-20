@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 	"wallet-manager/domain/constants"
 	"wallet-manager/domain/wallet/dto"
 	"wallet-manager/domain/wallet/repository"
@@ -27,7 +28,7 @@ func NewWalletService(repository repository.IWalletRepository) *WalletService {
 func (w *WalletService) Create(ctx context.Context, userID int64) (wallet *dto.Wallet, err error) {
 	// prevent user to create two wallets
 	walletEntity, err := w.repository.GetByUserID(ctx, userID)
-	if err != nil {
+	if err != nil && !errors.Is(err, constants.ErrNotFound) {
 		return nil, err
 	}
 

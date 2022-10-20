@@ -7,5 +7,5 @@ type Wallet struct {
 	Balance   uint64    `json:"balance"`
 	UserID    int64     `json:"user_id"`
 	CreatedAt time.Time `json:"created_at"`
-	UpdateAt  time.Time `json:"update_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
